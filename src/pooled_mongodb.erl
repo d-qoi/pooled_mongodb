@@ -1,20 +1,14 @@
 -module(pooled_mongodb).
 
--behaviour(application).
+-export([initialize/1]).
 
--export([start/2, stop/1]).
-
--spec start(application:start_type(), term()) -> {ok, pid()} | {error, term()}.
-start(_StartType, StartArgs) ->
+-spec initialize(application:start_type()) -> {ok, pid()} | {error, term()}.
+initialize(PoolArgs) ->
     {ok, DefaultArgs} = application:get_env(default),
-    NewArgs = case is_map(StartArgs) of
+    NewArgs = case is_map(PoolArgs) of
         true ->
-            maps:merge(DefaultArgs, StartArgs); % second map takes key president. 
+            maps:merge(DefaultArgs, PoolArgs); % second map takes key president. 
         _ ->
             DefaultArgs
         end, 
     pooled_mongodb_sup:start_link(NewArgs).
-
--spec stop(term()) -> ok.
-stop(_State) ->
-    ok.

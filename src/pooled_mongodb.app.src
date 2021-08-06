@@ -1,6 +1,6 @@
 {application, pooled_mongodb,
  [{description, "An OTP library"},
-  {vsn, "1.0.0"},
+  {vsn, "1.0.1"},
   {registered, []},
   {applications,
    [kernel,
@@ -12,10 +12,10 @@
     {default, 
     #{name => mongos, 
       pool_args => [{name, {local, mongos}}, {size, 3},{max_overflow, 10},{worker_module, pooled_mongodb_worker}],
-      mongo_args => [{database, <<"pooled_mongo">>}]}}
+      mongo_args => [{database, <<"pooled_mongodb">>}]}}
   ]},
   {modules, []},
 
-  {licenses, ["Apache 2.0"]},
+  {licenses, ["MIT License"]},
   {links, []}
  ]}.

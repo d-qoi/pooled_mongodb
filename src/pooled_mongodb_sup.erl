@@ -2,11 +2,14 @@
 
 -behaviour(supervisor).
 
--export([start_link/1]).
+-export([start_link/1, start_link/0]).
 
 -export([init/1]).
 
 -define(SERVER, ?MODULE).
+
+-spec start_link() -> term().
+start_link() -> start_link(#{}).
 
 -spec start_link(map()) -> pid() | term().
 start_link(Args) -> supervisor:start_link({local, ?SERVER}, ?MODULE, Args).
