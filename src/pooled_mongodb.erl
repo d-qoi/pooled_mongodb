@@ -4,7 +4,9 @@
 
 -spec initialize(application:start_type()) -> {ok, pid()} | {error, term()}.
 initialize(PoolArgs) ->
-    {ok, DefaultArgs} = application:get_env(default),
+    DefaultArgs = #{name => mongos, 
+                    pool_args => [{name, {local, mongos}}, {size, 3},{max_overflow, 10},{worker_module, pooled_mongodb_worker}],
+                    mongo_args => [{database, <<"pooled_mongodb">>}]},
     NewArgs = case is_map(PoolArgs) of
         true ->
             maps:merge(DefaultArgs, PoolArgs); % second map takes key president. 

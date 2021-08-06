@@ -9,10 +9,7 @@
     mongodb
    ]},
   {env,[
-    {default, 
-    #{name => mongos, 
-      pool_args => [{name, {local, mongos}}, {size, 3},{max_overflow, 10},{worker_module, pooled_mongodb_worker}],
-      mongo_args => [{database, <<"pooled_mongodb">>}]}}
+    
   ]},
   {modules, []},
 
