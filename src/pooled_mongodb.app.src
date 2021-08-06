@@ -1,0 +1,21 @@
+{application, pooled_mongodb,
+ [{description, "An OTP library"},
+  {vsn, "1.0.0"},
+  {registered, []},
+  {applications,
+   [kernel,
+    stdlib,
+    poolboy,
+    mongodb
+   ]},
+  {env,[
+    {default, 
+    #{name => mongos, 
+      pool_args => [{name, {local, mongos}}, {size, 3},{max_overflow, 10},{worker_module, pooled_mongodb_worker}],
+      mongo_args => [{database, <<"pooled_mongo">>}]}}
+  ]},
+  {modules, []},
+
+  {licenses, ["Apache 2.0"]},
+  {links, []}
+ ]}.
