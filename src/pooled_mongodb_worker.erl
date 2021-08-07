@@ -30,28 +30,28 @@ init(Args) ->
 
 -spec handle_call({atom(), map()}, term(), map()) -> {reply, ok | {ok, term()} | {ok, term(), term()}, map()}.
 handle_call({insert, Cmd}, _From, State=#{pid := ConnPid}) ->
-    {{true, Info}, Doc} = mc_worker_api:insert(Cmd#{connection => ConnPid}),
-    {reply, {ok, Info, Doc}, State};
+    Response = mc_worker_api:insert(Cmd#{connection => ConnPid}),
+    {reply, Response, State};
 
 handle_call({update, Cmd}, _From, State=#{pid := ConnPid}) ->
-    {true, Info} = mc_worker_api:update(Cmd#{connection => ConnPid}),
-    {reply, {ok, Info}, State};
+    Response = mc_worker_api:update(Cmd#{connection => ConnPid}),
+    {reply, Response, State};
 
 handle_call({delete, Cmd}, _From, State=#{pid := ConnPid}) ->
-    {true, Info} = mc_worker_api:delete(Cmd#{connection => ConnPid}),
-    {reply, {ok, Info}, State};
+    Response = mc_worker_api:delete(Cmd#{connection => ConnPid}),
+    {reply, Response, State};
 
 handle_call({find, Cmd}, _From, State=#{pid := ConnPid}) ->
-    {ok, Cursor} = mc_worker_api:find(Cmd#{connection => ConnPid}),
-    {reply, {ok, Cursor}, State};
+    Response = mc_worker_api:find(Cmd#{connection => ConnPid}),
+    {reply, Response, State};
 
 handle_call({find_one, Cmd}, _From, State=#{pid := ConnPid}) ->
     Response = mc_worker_api:find_one(Cmd#{connection => ConnPid}),
-    {reply, {ok, Response}, State};
+    {reply, Response, State};
 
 handle_call({count, Cmd}, _From, State=#{pid := ConnPid}) ->
     Response = mc_worker_api:count(Cmd#{connection => ConnPid}),
-    {reply, {ok, Response}, State};
+    {reply, Response, State};
 
 handle_call(_Arg, _From, State) ->
     {reply, ok, State}.
