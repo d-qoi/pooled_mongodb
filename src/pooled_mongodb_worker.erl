@@ -53,6 +53,10 @@ handle_call({count, Cmd}, _From, State=#{pid := ConnPid}) ->
     Response = mc_worker_api:count(Cmd#{connection => ConnPid}),
     {reply, Response, State};
 
+handle_call({command, Cmd}, _From, State=#{pid := ConnPid}) ->
+    Response = mc_worker_api:command(ConnPid, Cmd),
+    {reply, Response, State};
+
 handle_call(_Arg, _From, State) ->
     {reply, ok, State}.
 
